@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rivermen</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/data-flex.css">
+    <script src="./js/jq1.7.min.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+
+    </div>
+</body>
+
+</html>
+<script>
+  // 如果我们能抓到 id ---中文名字--英文名字---中文说明---甚至姿势之类的字节，我们就可以快速定位
+    let a = {
+        "_id": "611918c9f11653001dcdbda2",
+        "parts": [],
+        "name": "The Pedestrian",
+        "description": "A pedestrian following the shopkeeper seems to be familiar with this hawking scene.\n\"I didn't expect that the shopkeeper's uncle is so old, and the years are making people old. But the craftsmanship of this board is still so crisp and beautiful, is there no apprentice to inherit this craft?\"",
+        "multiLanguageTextMetadata": {
+            "chinese": {
+                "name": "行人",
+                "description": "一位跟随在货郎身后的行人，似是对这叫卖场景司空见惯。\n“没想到货郎阿叔年纪这么大了，岁月催人老啊。不过这打板的手艺还是那么地清脆漂亮，难道就没有个徒弟继承这手艺吗？”"
+            }
+        },
+        "locationId": 148,
+        "image": "https://dvj0zr13q9lx.cloudfront.net/output/pawn/148/Pawn_7284_np.png",
+        "owner": "0x5789A38a3FAcfaa86ED950e88D79a9A2F6140052",
+        "thumbnail": "N/A",
+        "fusionCount": 0,
+        "type": "Pawn",
+        "tokenId": 1,
+        "mediaInfo": {
+            "imageUrl": "https://dvj0zr13q9lx.cloudfront.net/output/pawn/148/Pawn_7284_np.png",
+            "modelUrl": "https://dvj0zr13q9lx.cloudfront.net/output/pawn/148/Pawn_7284.glb",
+            "renderingStatus": "Finished",
+            "renderingFailureCount": 0
+        },
+        "orders": {
+            "openSeaOrder": null
+        },
+        "appearance": {
+            "traits": [{
+                "trait_type": "Type",
+                "value": "Human 2"
+            }, {
+                "trait_type": "Type Rarity",
+                "value": "Normal"
+            }, {
+                "trait_type": "Hat",
+                "value": "Top hat"
+            }, {
+                "trait_type": "Hat Rarity",
+                "value": "Normal"
+            }, {
+                "trait_type": "Head",
+                "value": "Smiley face"
+            }, {
+                "trait_type": "Head Rarity",
+                "value": "Normal"
+            }, {
+                "trait_type": "Jacket",
+                "value": "Red jacket"
+            }, {
+                "trait_type": "Jacket Rarity",
+                "value": "Rare"
+            }, {
+                "trait_type": "Trousers",
+                "value": "Pink functional pants"
+            }, {
+                "trait_type": "Trousers Rarity",
+                "value": "Normal"
+            }, {
+                "trait_type": "Shoes",
+                "value": "Mamba tooling shoes"
+            }, {
+                "trait_type": "Shoes Rarity",
+                "value": "Normal"
+            }, {
+                "trait_type": "Background",
+                "value": "Background 7"
+            }],
+            "type": 250,
+            "hat": 16,
+            "head": 111,
+            "jacket": 156,
+            "trousers": 179,
+            "shoes": 221,
+            "background": 806,
+            "signature": 7284,
+            "version": 2
+        },
+        "createdAt": "2021-08-15T08:00:09.000Z",
+        "updatedAt": "2021-08-22T11:59:00.644Z",
+        "__v": 0
+    };
+    $.getJSON("./test.json", (res) => {
+        let str = "";
+        res.map(i => {
+            let {
+                image,
+                tokenId,
+                name: nameEn,
+                description: descriptionEn,
+                multiLanguageTextMetadata: {
+                    chinese: {
+                        name: nameCn,
+                        description: descriptionCn
+                    }
+                }
+            } = i;
+            str += `
+            <div class="box" data-flex="dir:left box:first cross:top">
+              <img class="image" style="width: 100px;height: 100px;" src="${image}" alt="">
+              <div class="right">
+                  <div class="name">
+                      <span class="en">${nameEn}</span>
+                      <span class="cn">${nameCn}</span>
+                  </div>
+                  <div class="description">
+                      <span class="en">
+                          ${descriptionEn}
+                      </span>
+                      <span class="cn">
+                          ${descriptionCn}
+                      </span>
+                  </div>
+              </div>
+          </div>
+            `;
+
+        })
+        $("#wrapper").html(str);
+    })
+</script>

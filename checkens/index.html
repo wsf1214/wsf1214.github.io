@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="./web3.min.js"></script> -->
+    <script src="./web3.js"></script>
+    <script src="./jq1.7.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script> -->
+</head>
+
+<body>
+    <textarea id="text" style="width:400px;height:400px"></textarea>
+    <button id="btn">提交</button>
+    <div id="result" style="width:400px;height:400px;border: 1px solid #000;"></div>
+</body>
+
+</html>
+<script>
+    // https://learnblockchain.cn/docs/web3.js/web3-eth-ens.html#
+    var web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+
+    let btn = $("#btn");
+    btn.on("click", (e) => {
+        let text = $("#text").val();
+        text = text.split("\n");
+        text.map(ens => {
+            if (ens !== "") {
+                ens = ens + ".eth";
+                web3.eth.ens.getAddress(ens)
+                    .then(res => {
+                        console.log(ens, "被注册了，地址：", res);
+                    })
+                    .catch(err => {
+                        console.log(ens, "没被注册");
+                        let link = `<div><a target="_blank" href="https://app.ens.domains/name/${ens}">https://app.ens.domains/name/${ens}</a></div>`;
+                        $("#result").append(link);
+                    });
+            }
+        })
+    })
+</script>
