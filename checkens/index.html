@@ -13,8 +13,7 @@
 </head>
 
 <body>
-    <textarea id="text" style="width:400px;height:400px"
-    ></textarea>
+    <textarea id="text" style="width:400px;height:400px"></textarea>
     <button id="btn">检查</button>
     <div id="result" style="width:400px;height:400px;border: 1px solid #000;"></div>
 </body>
@@ -31,16 +30,32 @@
         text.map(ens => {
             if (ens !== "") {
                 ens = ens + ".eth";
-                web3.eth.ens.getAddress(ens)
+                web3.eth.ens.getPubkey(ens)
                     .then(res => {
-                        // console.log(ens, "被注册了，地址：", res);
+                        console.log(ens, "被注册了，地址：", res);
                     })
                     .catch(err => {
-                        // console.log(ens, "没被注册");
+                        console.log(ens, "没被注册");
                         let link = `<div><a target="_blank" href="https://app.ens.domains/name/${ens}">https://app.ens.domains/name/${ens}</a></div>`;
                         $("#result").append(link);
                     });
             }
         })
     })
+    let ens = "123456789.eth"
+    web3.eth.ens.getAddress(ens)
+        .then(res => {
+            console.log(ens, "被注册了，地址：", res);
+        })
+        .catch(err => {
+            console.log(ens, "没被注册");
+            let link = `<div><a target="_blank" href="https://app.ens.domains/name/${ens}">https://app.ens.domains/name/${ens}</a></div>`;
+            $("#result").append(link);
+        });
+    web3.eth.ens.resolver('996icu.eth').then(function(contract) {
+        console.log(contract);
+    });
+    web3.eth.ens.getContent('ethfi.eth').then(function(result) {
+        console.log(result)
+    });
 </script>
